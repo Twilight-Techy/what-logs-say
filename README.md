@@ -1,7 +1,7 @@
 # What Logs Say
 
 A Google Cloud Function that reads your recent error logs and has Gemini explain what actually
-happened — as a security analyst, a developer, or a DBA, depending on who's asking.
+happened, as a security analyst, a developer, or a DBA, depending on who's asking.
 
 Log volume is the problem: by the time an incident is worth investigating, there is far more
 log data than anyone wants to read. This pulls the `ERROR`-and-worse entries from a time window
@@ -15,9 +15,9 @@ The same logs mean different things to different people, so the persona is a par
 
 | `mode` | Reads as | Analysis section |
 |---|---|---|
-| `security` | SOC analyst | **ATTACK PATTERNS** — threats, unauthorized access, attack vectors |
-| `dev` *(default)* | Application developer | **ERROR ANALYSIS** — bugs, error patterns, failures |
-| `database` | DBA | **PERFORMANCE ANALYSIS** — connectivity, query problems, bottlenecks |
+| `security` | SOC analyst | **ATTACK PATTERNS**: threats, unauthorized access, attack vectors |
+| `dev` *(default)* | Application developer | **ERROR ANALYSIS**: bugs, error patterns, failures |
+| `database` | DBA | **PERFORMANCE ANALYSIS**: connectivity, query problems, bottlenecks |
 
 Each ends with an **IMPACT ASSESSMENT** and actionable recommendations.
 
@@ -38,7 +38,7 @@ Accepted in either the query string or a JSON body.
 |---|---|---|
 | `timeframe` | `1` | How many hours back to read |
 | `mode` | `dev` | `security`, `dev`, or `database` |
-| `chat` | — | A specific question; overrides the standard analysis |
+| `chat` | none | A specific question; overrides the standard analysis |
 
 Reading is capped at 50 entries per request to keep token cost bounded, and the response says
 how many were analyzed. On a project with no matching logs, a small built-in sample is used so
@@ -60,7 +60,7 @@ the default (`gemini-2.0-flash`).
 ## Generating test logs
 
 An empty project produces nothing to analyze, so `generate_logs.py` writes realistic synthetic
-logs to Cloud Logging — including a staged intrusion sequence that escalates from failed logins
+logs to Cloud Logging, including a staged intrusion sequence that escalates from failed logins
 to a successful breach, which is what makes `security` mode worth reading.
 
 ```bash
